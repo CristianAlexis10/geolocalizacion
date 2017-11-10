@@ -7,27 +7,15 @@
 
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYIb-jxF2zZivhG13bGeEKI9gJthF4Ovg&libraries=adsense&sensor=true&language=es"></script>
-   
+
 </head>
 
-<body >				
-    <h2>Buscar y trazar rutas</h2>
-   
+<body >
+
 Origen <input type="text" id="start" placeholder="address or coordinates" />
-	
+
 Destino <input type="text" id="end" placeholder="address or coordinates" />
 
-Tipo de Viaje 
-		<select id="travelMode" class="routeOptions" >
-			<option value="DRIVING" selected="selected">En Auto</option>
-          			<option value="BICYCLING">En Bicicleta</option>
-          			<option value="WALKING">Caminando</option>
-      		</select><br/>
-Unidades de medida
-      	<select id="unitSystem" class="routeOptions">
-          		<option value="METRIC" selected="selected">Métrico</option>
-          		<option value="IMPERIAL">Imperial</option>
-      	</select>
 
 
 <a href="javascript:void(0)" id="search"  >Buscar Ruta</a>
@@ -35,8 +23,8 @@ Unidades de medida
 	<div id="results" style="width: 990px; height: 500px;" class="column first">
 		<div id="map_canvas" style="width: 65%; height: 100%; float: left;"></div>
 		<div id="directions_panel" style="width: 35%; height: 100%; overflow: auto; float: right;"></div>
-	
-    
+
+
 
 
                 <script type='text/javascript'>
@@ -47,7 +35,7 @@ Unidades de medida
 	function initialize() {
 	    var myLatlng = new google.maps.LatLng( 6.2518400, -75.5635900);
 	    var myOptions = {
-	        zoom: 10,
+	        zoom: 15,
 	        center: myLatlng,
 	        mapTypeId: 'roadmap'
 	    };
@@ -66,8 +54,8 @@ Unidades de medida
 		var request = {
 		        origin: start,
 		        destination: end,
-		        travelMode: google.maps.DirectionsTravelMode[$('#travelMode').val()],
-		        unitSystem: google.maps.DirectionsUnitSystem[$('#unitSystem').val()],
+		        travelMode: google.maps.DirectionsTravelMode['DRIVING'],
+		        unitSystem: google.maps.DirectionsUnitSystem['METRIC'],
 		        provideRouteAlternatives: true
 	    };
 		directionsService.route(request, function(response, status) {
@@ -75,6 +63,7 @@ Unidades de medida
 	            directionsDisplay.setMap(map);
 	            directionsDisplay.setPanel($("#directions_panel").get(0));
 	            directionsDisplay.setDirections(response);
+                console.log(directionsDisplay);
 	        } else {
 	            alert("direccion no valida");
 	        }
@@ -82,11 +71,11 @@ Unidades de medida
 	}
 
 	$('#search').live('click', function(){ getDirections(); });
-	$('.routeOptions').live('change', function(){ getDirections(); });
-	
+
+
 	$(document).ready(function() {
 	    initialize();
-   gmaps_ads();
+
 	});        </script>
             </body>
 </html>
